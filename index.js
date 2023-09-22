@@ -16,14 +16,16 @@ for (const file of files) {
     img.src = firsImagePath;
     gallery.append(img);
 
-    source.forEach((imageSrc, index) => {
-        if(index !==0) {
-            const a = document.createElement('a');
-            a.setAttribute('data-fancybox', 'gallery' + name);
-            a.setAttribute('href', path + '/' + imageSrc);
-            gallery.append(a);
-        }
-    })
+    source
+        .sort((a, b) => Number(a.replace(/frame-(\d+).png/gi, '$1')) - Number(b.replace(/frame-(\d+).png/gi, '$1')))
+        .forEach((imageSrc, index) => {
+            if (index !== 0) {
+                const a = document.createElement('a');
+                a.setAttribute('data-fancybox', 'gallery' + name);
+                a.setAttribute('href', path + '/' + imageSrc);
+                gallery.append(a);
+            }
+        })
 
     main.append(gallery);
 }
